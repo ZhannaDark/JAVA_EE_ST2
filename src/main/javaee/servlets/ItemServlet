@@ -1,0 +1,22 @@
+package main.javaee.servlets;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import main.javaee.mini.shop.ConnectionDB;
+import main.javaee.mini.shop.Items;
+
+import java.io.IOException;
+import java.util.List;
+
+
+@WebServlet(value = "/home.html")
+public class ItemServlet extends HttpServlet {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Items> items = ConnectionDB.getItems();
+        request.setAttribute("items", items);
+        request.getRequestDispatcher("/items.jsp").forward(request, response);
+    }
+}
